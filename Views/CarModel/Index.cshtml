@@ -1,0 +1,72 @@
+﻿@using RentACar.DTOs.Response
+@model IEnumerable<GetAllCarModelsResponse>
+
+
+<div class=container>
+    <div class="row pt-3 pb-4">
+        <div>
+            <h1>Car Models</h1>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th align="center" valign="middle">
+                        Id
+                    </th>
+                    <th align="center" valign="middle">
+                        Name
+                    </th>
+                    <th align="center" valign="middle">
+                        brandId
+                    </th>
+                    <th align="center" valign="middle">
+                        brand
+                    </th>
+                    <th align="center" valign="middle">
+                        cars
+                    </th>
+                    <th align="center" valign="middle">
+                        
+                    </th>
+                    <th align="center" valign="middle">
+
+                    </th>
+
+
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var carModel in Model)
+                {
+                    <tr>
+
+                        <td align="center" valign="middle">@carModel.id</td>
+                        <td align="center" valign="middle">@carModel.name</td>
+                        <td align="center" valign="middle">@carModel.brandId</td>
+                        <td align="center" valign="middle"> @carModel.brand.name</td>
+                        <td align="center" valign="middle">@* @carModel.cars *@</td>
+                       
+
+
+                         <td align="center" valign="middle">
+                            <a asp-controller="CarModel" asp-action="UpdateCarModel" asp-route-id="@carModel.id" type="button" class="btn btn-success style="width:100px">Güncelle</a>
+                    </td>
+                    <td align="center" valign="middle">
+                            <a asp-controller="CarModel" asp-action="DeleteCarModel" asp-route-id="@carModel.id" type="button" class="btn btn-danger" style="width:100px">Sil</a>
+                    </td> 
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <div class="row pt-3 pb-2">
+            <div>
+                <a asp-controller="CarModel" asp-action="AddNewCarModel" class="btn btn-lg btn-primary" align="center" valign="middle" type="button">
+                    Add New Car Model
+                </a>
+            </div>
+    </div>
+</div>

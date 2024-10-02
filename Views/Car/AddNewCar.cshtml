@@ -1,0 +1,77 @@
+﻿@using RentACar.DTOs.Request
+@model CreateNewCarRequest
+
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-10">
+
+            <div class="border p-3 mt-5">
+                @*<div class="row pb-3 ">
+                <h2 class="text-primary">@(Model == null ? "Add Book" : "Update Book")</h2>
+                <hr />
+
+                </div>*@
+
+                <div class="mb-3">
+
+                    <label asp-for="plate" class="p-0"></label>
+                    <input asp-for="plate" class="form-control" />
+                    <span asp-validation-for="plate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="dailyPrice" class="p-0"></label>
+                    <input asp-for="dailyPrice" class="form-control" />
+                    <span asp-validation-for="dailyPrice" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="modelId" class="p-0"></label>
+                    <select asp-for="modelId" asp-items="ViewBag.carModelList" class="form-control">
+                        <option value="">Lütfen Model Seçiniz</option> <!-- Varsayılan seçeneği ekleyebilirsiniz -->
+                    </select>
+                </div>
+
+
+
+
+
+                @* <div class="mb-3">
+
+                <label asp-for="PicUrl" class="p-2"></label>
+                <input type="file" name="file" class="form-control" />
+                </div> *@
+
+
+
+
+                <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Add New Car Model</button>
+
+
+
+                <a asp-controller="CarModel" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px"> Show Car Models </a>
+
+
+
+            </div>
+        </div>
+        @* <div class="col-2">
+
+        @if (Model != null)
+        {
+        <img src="@Model.PicUrl" width="100%"
+        style="border-radius:7px; border:1px solid #bbb9b9" />
+        }
+        </div> *@
+
+
+    </div>
+
+
+
+
+
+</form>

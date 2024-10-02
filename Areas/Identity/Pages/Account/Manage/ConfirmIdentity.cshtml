@@ -1,0 +1,121 @@
+﻿@page
+@model RentACar.Areas.Identity.Pages.Account.Manage.ConfirmIdentitiy
+@{
+    ViewData["Title"] = "Confirm Identity";
+    ViewData["ActivePage"] = ManageNavPages.ConfirmIdentitiy;
+
+}
+@if (TempData["Fail"] != null)
+{
+        <div class="fail-message">
+        @TempData["Fail"]
+    </div>
+
+
+}
+@if (TempData["Success"] != null)
+{
+        <div class="success-message">
+        @TempData["Success"]
+    </div>
+
+
+}
+
+
+<style>
+    .fail-message {
+        color: #85172c;
+        background-color: #ba4c61;
+        border-color: #a80323;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: 'Arial', sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        border: 1px solid;
+        max-width: 500px;
+        margin: 10px 0;
+        text-align: center;
+        }
+        .success-message {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: 'Arial', sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        border: 1px solid;
+        max-width: 500px;
+        margin: 10px 0;
+        text-align: center;
+    
+    }
+</style>
+
+
+
+@if (Model.Input.isVerified == true)
+{
+
+    <h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="confirm-ıdentity-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Name" class="form-control" autocomplete="off" aria-required="true" readonly placeholder="Please enter your First Name" />
+                <label asp-for="Input.Name" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                    <input asp-for="Input.LastName" class="form-control" autocomplete="off" aria-required="true" readonly placeholder="Please enter your Last Name." />
+                <label asp-for="Input.LastName" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                    <input asp-for="Input.NationalId" class="form-control" autocomplete="off" aria-required="true" readonly placeholder="Please enter your Nation Id." />
+                <label asp-for="Input.NationalId" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                    <input asp-for="Input.BirthYear" class="form-control" autocomplete="off" aria-required="true" readonly placeholder="Please enter your Birth Year." />
+                <label asp-for="Input.BirthYear" class="form-label"></label>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Check Identity</button>
+        </form>
+    </div>
+</div>
+}
+
+@if (Model.Input.isVerified==false)
+{
+    <div class="row">
+        <div class="col-md-6">
+            <form id="confirm-ıdentity-form" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Name" class="form-control" autocomplete="off" aria-required="true"  placeholder="Please enter your First Name" />
+                    <label asp-for="Input.Name" class="form-label"></label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.LastName" class="form-control" autocomplete="off" aria-required="true"  placeholder="Please enter your Last Name." />
+                    <label asp-for="Input.LastName" class="form-label"></label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.NationalId" class="form-control" autocomplete="off" aria-required="true"   placeholder="Please enter your Nation Id." />
+                    <label asp-for="Input.NationalId" class="form-label"></label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.BirthYear" class="form-control" autocomplete="off" aria-required="true"  placeholder="Please enter your Birth Year." />
+                    <label asp-for="Input.BirthYear" class="form-label"></label>
+                </div>
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Check Identity</button>
+            </form>
+        </div>
+    </div>
+    
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
