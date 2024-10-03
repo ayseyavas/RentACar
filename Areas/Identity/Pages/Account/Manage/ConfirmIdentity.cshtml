@@ -55,14 +55,20 @@
     }
 </style>
 
-
+<h3>@ViewData["Title"]</h3>
 
 @if (Model.Input.isVerified == true)
 {
 
-    <h3>@ViewData["Title"]</h3>
+    
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
+        <div class="col-md-3">
+            <div>
+                <partial name="_ManageNav.cshtml" />
+
+            </div>
+        </div>
     <div class="col-md-6">
         <form id="confirm-ıdentity-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
@@ -82,7 +88,7 @@
                     <input asp-for="Input.BirthYear" class="form-control" autocomplete="off" aria-required="true" readonly placeholder="Please enter your Birth Year." />
                 <label asp-for="Input.BirthYear" class="form-label"></label>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Check Identity</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary" style="display:none">Check Identity </button>
         </form>
     </div>
 </div>
@@ -91,6 +97,12 @@
 @if (Model.Input.isVerified==false)
 {
     <div class="row">
+        <div class="col-md-3">
+            <div>
+                <partial name="_ManageNav.cshtml" />
+
+            </div>
+        </div>
         <div class="col-md-6">
             <form id="confirm-ıdentity-form" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>

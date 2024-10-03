@@ -1,20 +1,49 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using RentACar.Models;
 using RentACar.Utilities;
 
 public class SeedRoles
 {
     public static async Task InitializeRoles(IServiceProvider serviceProvider)
     {
-        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //Kullanıcı rollerinin oluşturulması
 
-        string[] roles = { UserRoles.Role_Admin, UserRoles.Role_User };
+        string[] roleNames = { UserRoles.Role_Admin, UserRoles.Role_User };
 
-        foreach (var role in roles)
+        IdentityResult roleResult;
+
+        foreach (var role in roleNames)
         {
-            if (!await roleManager.RoleExistsAsync(role))
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            var roleExists = await roleManager.RoleExistsAsync(role);
+
+            if (!roleExists)
             {
-                await roleManager.CreateAsync(new IdentityRole(role));
+                roleResult = await roleManager.CreateAsync(new IdentityRole(role));
             }
         }
+
+
+
+        var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+
+        string email = "admin@admin.com";
+        string password = "Test1.";
+
+        if (await userManager.FindByEmailAsync(email) == null)
+        {
+            var user = new AppUser();
+            user.UserName = email;
+            user.Email = email;
+            user.EmailConfirmed = true;
+
+            userManager.CreateAsync(user, password);
+
+           await userManager.AddToRoleAsync(user, "Admin");
+        }
+
+
+
     }
 }

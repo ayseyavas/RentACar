@@ -92,18 +92,25 @@ namespace RentACar.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user == null)
-            {
-                return NotFound("User not found.");
-            }
-
             Input = new InputModel
             {
                 Name = user.name,
                 LastName = user.lastName,
                 NationalId = user.nationalId,
-                BirthYear = user.birthYear
+                BirthYear = user.birthYear,
+                isVerified = (bool)user.isVerified
             };
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+            if (user.isVerified==true)
+            {
+               
+
+            }
+            
 
             return Page();
         }

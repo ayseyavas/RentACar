@@ -6,7 +6,7 @@ namespace RentACar.Models.Repository.Concreate
 {
 
     //IdentityDbContext context sınıfından miras alır
-    public class AppDbContext :IdentityDbContext
+    public class AppDbContext :IdentityDbContext<AppUser>
     {
 
         
@@ -15,7 +15,7 @@ namespace RentACar.Models.Repository.Concreate
 
         public DbSet<Car> cars { get; set; }
 
-        public DbSet<AppUser> AppUsers { get; set; }
+        //public DbSet<AppUser> AppUsers { get; set; }
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
