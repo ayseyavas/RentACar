@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RentACar.DTOs;
 using RentACar.DTOs.Request;
 using RentACar.DTOs.Response;
 using RentACar.Models.Business.Abstract;
 using RentACar.Models.Business.Concreate;
 using RentACar.Models.Entities.Concreate;
+using RentACar.Utilities;
 
 namespace RentACar.Controllers
 {
+    [Authorize(Roles =UserRoles.Role_Admin)]
     public class BrandController : Controller
     {
         private IBrandService<Brand> brandManager;
