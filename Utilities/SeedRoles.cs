@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RentACar.Models;
 using RentACar.Utilities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public class SeedRoles
 {
@@ -31,16 +32,31 @@ public class SeedRoles
         string email = "admin@admin.com";
         string password = "Test1.";
 
-        if (await userManager.FindByEmailAsync(email) == null)
+        var user = await userManager.FindByEmailAsync(email);
+
+        if (user==null)
         {
-            var user = new AppUser();
+             user = new AppUser();
             user.UserName = email;
             user.Email = email;
             user.EmailConfirmed = true;
+            user.isVerified = true;
 
-            userManager.CreateAsync(user, password);
+            var createAdminResult=await userManager.CreateAsync(user, password);
 
-           await userManager.AddToRoleAsync(user, "Admin");
+            if(createAdminResult.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user,UserRoles.Role_Admin);
+
+            }
+            else
+            {
+                foreach(var err in createAdminResult.Errors)
+                {
+                    Console.WriteLine($"Error: {err.Description}");
+
+                }
+            }
         }
 
 
