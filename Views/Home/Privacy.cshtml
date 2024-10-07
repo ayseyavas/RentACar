@@ -1,6 +1,17 @@
-﻿@{
+﻿@using RentACar.Utilities
+@{
     ViewData["Title"] = "Privacy Policy";
 }
+
+@if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Role_User))
+{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
