@@ -20,8 +20,11 @@ namespace RentACar.Models.Entities.Concreate
 
         public ICollection<Car> cars { get; set; }
 
+        [ValidateNever]
+        public string PictureUrl { get; set; }
 
 
-        
+
+
     }
 }

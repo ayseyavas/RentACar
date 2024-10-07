@@ -1,5 +1,15 @@
-﻿@{
+﻿@using RentACar.Utilities
+@{
     ViewData["Title"] = "Home Page";
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Role_User))
+{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">

@@ -44,11 +44,11 @@ namespace RentACar.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewCarModel(CreateNewCarModelRequest createNewCarModelRequest)
+        public IActionResult AddNewCarModel(CreateNewCarModelRequest createNewCarModelRequest, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                carModelManager.AddNewCarModel(createNewCarModelRequest);
+                carModelManager.AddNewCarModel(createNewCarModelRequest,file);
             }
 
             return RedirectToAction("Index");
@@ -79,10 +79,10 @@ namespace RentACar.Controllers
 
         }
         [HttpPost]
-        public IActionResult UpdateCarModel(UpdateCarModelRequest updateCarModelRequest) 
+        public IActionResult UpdateCarModel(UpdateCarModelRequest updateCarModelRequest, IFormFile file) 
         {
             
-            carModelManager.updateCarModel(updateCarModelRequest);
+            carModelManager.updateCarModel(updateCarModelRequest,file);
 
 
             return RedirectToAction("Index");

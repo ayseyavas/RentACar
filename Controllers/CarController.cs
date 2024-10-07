@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.DTOs.Request;
 using RentACar.DTOs.Response;
@@ -8,6 +9,8 @@ using RentACar.Models.Entities.Concreate;
 
 namespace RentACar.Controllers
 {
+
+    //kullanıcın giriş yapmış olması gerekir bu sayfalara ulaşabilmesi için
     public class CarController : Controller
     {
         private ICarService<Car> carManager;
@@ -42,10 +45,10 @@ namespace RentACar.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewCar(CreateNewCarRequest createNewCarRequest)
+        public IActionResult AddNewCar(CreateNewCarRequest createNewCarRequest, IFormFile file)
         {
 
-            carManager.AddNewCar(createNewCarRequest);
+            carManager.AddNewCar(createNewCarRequest,file);
         
             return RedirectToAction("Index");
         }

@@ -1,4 +1,6 @@
-﻿namespace RentACar.DTOs.Request
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace RentACar.DTOs.Request
 {
     public class UpdateBrandRequest
     {
@@ -7,6 +9,9 @@
         public string description { get; set; }
 
         public int brandId { get; set; }
+
+        [ValidateNever]
+        public string PictureUrl { get; set; }
 
     }
 }

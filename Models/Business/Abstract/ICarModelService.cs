@@ -6,7 +6,7 @@ namespace RentACar.Models.Business.Abstract
 {
     public interface ICarModelService<T> where T : class
     {
-        void AddNewCarModel(CreateNewCarModelRequest createNewCarModelRequest);
+        void AddNewCarModel(CreateNewCarModelRequest createNewCarModelRequest, IFormFile? file);
 
         public IEnumerable<GetAllCarModelsResponse> GetAll(string? includeProps = null);
 
@@ -16,7 +16,7 @@ namespace RentACar.Models.Business.Abstract
 
         public IEnumerable<GetAllBrandsResponse> getAllBrandsResponses(string? includeProps = null);
 
-        public void updateCarModel(UpdateCarModelRequest updateCarModelRequest);
+        public void updateCarModel(UpdateCarModelRequest updateCarModelRequest, IFormFile file);
 
         public void deleteCarModel(GetCarModelByIdResponse getCarModelByIdResponse);
     }

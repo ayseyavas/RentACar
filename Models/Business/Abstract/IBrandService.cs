@@ -7,10 +7,10 @@ namespace RentACar.Models.Business.Abstract
 {
     public interface IBrandService<T> where T : class
     {
-        void AddNewBrand(CreateNewBrandRequest createNewBrandRequest);
+        void AddNewBrand(CreateNewBrandRequest createNewBrandRequest, IFormFile? file);
         public IEnumerable<GetAllBrandsResponse> GetAll(string? includeProps = null);
 
-        void UpdateBrand(UpdateBrandRequest updateBrandRequest);
+        void UpdateBrand(UpdateBrandRequest updateBrandRequest, IFormFile file);
 
         GetBrandByIdResponse GetBrandById(int id);    
 

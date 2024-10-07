@@ -10,6 +10,9 @@ namespace RentACar.DTOs.Response
         public string name { get; set; }
         public string description { get; set; }
 
+        [ValidateNever]
+        public string PictureUrl { get; set; }
+
         //public ICollection<CarModel> carModels { get; set; }
     }
 }

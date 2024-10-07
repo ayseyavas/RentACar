@@ -1,7 +1,9 @@
 ﻿@using RentACar.DTOs.Response
 @model IEnumerable<GetAllBrandsResponse>
 
-
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml"; // Farklı bir layout tanımlama
+}
 
 <div class=container>
     <div class="row pt-3 pb-4">
@@ -11,10 +13,9 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>
+                    <th align="center" valign="middle">
                         resim
                     </th>
-
                     <th align="center" valign="middle">
                         Id
                     </th>
@@ -40,16 +41,16 @@
                         <td align="center" valign="middle">@getAllBrandsResponse.id</td>
                         <td align="center" valign="middle">@getAllBrandsResponse.name</td>
                         <td align="center" valign="middle">@getAllBrandsResponse.description</td>
-                      
 
+
+
+                         @* <td align="center" valign="middle">
+                             <a asp-controller="Brand" asp-action="UpdateBrand" asp-route-id="@getAllBrandsResponse.id" type="button" class="btn btn-success style="width:100px">Güncelle</a>
+                         </td>
 
                          <td align="center" valign="middle">
-                            <a asp-controller="Brand" asp-action="UpdateBrand" asp-route-id="@getAllBrandsResponse.id" type="button" class="btn btn-success style="width:100px">Güncelle</a>
-                        </td>
-                        
-                        <td align="center" valign="middle">
-                            <a asp-controller="Brand" asp-action="DeleteBrand" asp-route-id="@getAllBrandsResponse.id" type="button" class="btn btn-danger" style="width:100px">Sil</a>
-                        </td> 
+                             <a asp-controller="Brand" asp-action="DeleteBrand" asp-route-id="@getAllBrandsResponse.id" type="button" class="btn btn-danger" style="width:100px">Sil</a>
+                         </td> *@
 
                     </tr>
                 }
@@ -58,11 +59,11 @@
         </table>
 
         <div class="row pt-3 pb-2">
-            <div>
+           @*  <div>
                 <a asp-controller="Brand" asp-action="AddNewBrand" class="btn btn-lg btn-primary" align="center" valign="middle" type="button">
                     Add New Brand
                 </a>
-            </div>
+            </div> *@
 
         </div>
     </div>

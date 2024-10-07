@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using RentACar.DTOs.Request;
 using RentACar.DTOs.Response;
@@ -13,16 +14,29 @@ namespace RentACar.Models.Business.Concreate
         public ICarModelRepository carModelRepository;
         public readonly IMapper _mapper;
         public IBrandRepository brandRepository;
-        public CarModelManager(ICarModelRepository modelRepository, IBrandRepository brandRepository, IMapper mapper)
+        public readonly IWebHostEnvironment webHostEnvironment;
+        public CarModelManager(ICarModelRepository modelRepository, IBrandRepository brandRepository, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             this.carModelRepository = modelRepository;
             this._mapper = mapper;
             this.brandRepository = brandRepository;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
-        public void AddNewCarModel(CreateNewCarModelRequest createNewCarModelRequest)
+        public void AddNewCarModel(CreateNewCarModelRequest createNewCarModelRequest, IFormFile? file)
         {
-            CarModel carModel=_mapper.Map<CarModel>(createNewCarModelRequest);
+            string wwwRootPath = webHostEnvironment.WebRootPath;
+            string brandpath = Path.Combine(wwwRootPath, @"img", @"carModel");
+
+            using (var fileStream = new FileStream(Path.Combine(brandpath, file.FileName), FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+            createNewCarModelRequest.PictureUrl = @"\img\brand\" + file.FileName;
+
+
+
+            CarModel carModel =_mapper.Map<CarModel>(createNewCarModelRequest);
             carModelRepository.Add(carModel);
         }
 
@@ -76,9 +90,17 @@ namespace RentACar.Models.Business.Concreate
             return getCarModelByIdResponse;
         }
 
-        public void updateCarModel(UpdateCarModelRequest updateCarModelRequest)
+        public void updateCarModel(UpdateCarModelRequest updateCarModelRequest, IFormFile file)
         {
-            //CarModel carModel = carModelRepository.Get(x => x.id == updateCarModelRequest.id);
+
+            string wwwRootPath = webHostEnvironment.WebRootPath;
+            string brandpath = Path.Combine(wwwRootPath, @"img", @"carModel");
+
+            using (var fileStream = new FileStream(Path.Combine(brandpath, file.FileName), FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+            updateCarModelRequest.PictureUrl = @"\img\brand\" + file.FileName;
 
             CarModel tempCarModel = _mapper.Map<CarModel>(updateCarModelRequest);
 

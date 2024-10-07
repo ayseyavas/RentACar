@@ -1,6 +1,7 @@
 ﻿using RentACar.Models.Entities.Concreate;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 public class Car
 {
@@ -25,4 +26,7 @@ public class Car
     [ForeignKey("brandId")]
 
     public Brand brand { get; set; }
+
+    [ValidateNever]
+    public string PictureUrl { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using RentACar.Models.Entities.Concreate;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using RentACar.Models.Entities.Concreate;
 using System.ComponentModel.DataAnnotations;
 
 namespace RentACar.DTOs.Request
@@ -23,5 +24,7 @@ namespace RentACar.DTOs.Request
         public int brandId { get; set; }
 
         //public Brand Brand { get; set; }
+        [ValidateNever]
+        public string PictureUrl { get; set; }
     }
 }

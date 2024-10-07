@@ -1,6 +1,10 @@
 ﻿@using RentACar.DTOs.Response
 @model IEnumerable<GetAllCarModelsResponse>
+@{
+    ViewBag.Title = "Index";
 
+    Layout = "~/Views/Shared/_UserLayout.cshtml"; // Farklı bir layout tanımlama
+}
 
 <div class=container>
     <div class="row pt-3 pb-4">
@@ -29,7 +33,7 @@
                         cars
                     </th>
                     <th align="center" valign="middle">
-                        
+
                     </th>
                     <th align="center" valign="middle">
 
@@ -52,15 +56,15 @@
                         <td align="center" valign="middle">@carModel.brandId</td>
                         <td align="center" valign="middle"> @carModel.brand.name</td>
                         <td align="center" valign="middle">@* @carModel.cars *@</td>
-                       
 
 
-                         <td align="center" valign="middle">
+
+                       @*  <td align="center" valign="middle">
                             <a asp-controller="CarModel" asp-action="UpdateCarModel" asp-route-id="@carModel.id" type="button" class="btn btn-success style="width:100px">Güncelle</a>
-                    </td>
-                    <td align="center" valign="middle">
+                        </td>
+                        <td align="center" valign="middle">
                             <a asp-controller="CarModel" asp-action="DeleteCarModel" asp-route-id="@carModel.id" type="button" class="btn btn-danger" style="width:100px">Sil</a>
-                    </td> 
+                        </td> *@
 
                     </tr>
                 }
@@ -68,10 +72,10 @@
 
         </table>
         <div class="row pt-3 pb-2">
-            <div>
+          @*   <div>
                 <a asp-controller="CarModel" asp-action="AddNewCarModel" class="btn btn-lg btn-primary" align="center" valign="middle" type="button">
                     Add New Car Model
                 </a>
-            </div>
+            </div> *@
+        </div>
     </div>
-</div>

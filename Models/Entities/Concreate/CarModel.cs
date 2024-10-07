@@ -18,5 +18,8 @@ namespace RentACar.Models.Entities.Concreate
         public Brand brand { get; set; }// navigation property
 
         public ICollection<Car> cars { get; set; }
+
+        [ValidateNever]
+        public string PictureUrl { get; set; }
     }
 }

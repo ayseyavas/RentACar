@@ -18,5 +18,8 @@ namespace RentACar.DTOs.Request
 
         //public ICollection<Car> cars { get; set; }
 
+        [ValidateNever]
+        public string PictureUrl { get; set; }
+
     }
 }

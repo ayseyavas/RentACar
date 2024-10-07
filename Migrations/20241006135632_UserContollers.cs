@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RentACar.Migrations
 {
     /// <inheritdoc />
-    public partial class appUserValidateNever : Migration
+    public partial class UserContollers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,7 +63,8 @@ namespace RentACar.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: false)
+                    description = table.Column<string>(type: "text", nullable: false),
+                    PictureUrl = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -183,7 +184,8 @@ namespace RentACar.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: false),
-                    brandId = table.Column<int>(type: "integer", nullable: false)
+                    brandId = table.Column<int>(type: "integer", nullable: false),
+                    PictureUrl = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -205,7 +207,8 @@ namespace RentACar.Migrations
                     plate = table.Column<string>(type: "text", nullable: false),
                     dailyPrice = table.Column<int>(type: "integer", nullable: false),
                     modelId = table.Column<int>(type: "integer", nullable: false),
-                    brandId = table.Column<int>(type: "integer", nullable: false)
+                    brandId = table.Column<int>(type: "integer", nullable: false),
+                    PictureUrl = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

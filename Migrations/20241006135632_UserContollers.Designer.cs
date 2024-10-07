@@ -12,8 +12,8 @@ using RentACar.Models.Repository.Concreate;
 namespace RentACar.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241003104649_appUserValidateNever")]
-    partial class appUserValidateNever
+    [Migration("20241006135632_UserContollers")]
+    partial class UserContollers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,10 @@ namespace RentACar.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("brandId")
                         .HasColumnType("integer");
@@ -274,6 +278,10 @@ namespace RentACar.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -294,6 +302,10 @@ namespace RentACar.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("brandId")
                         .HasColumnType("integer");

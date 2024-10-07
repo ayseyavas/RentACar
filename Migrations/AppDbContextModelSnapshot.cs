@@ -30,6 +30,10 @@ namespace RentACar.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("brandId")
                         .HasColumnType("integer");
 
@@ -271,6 +275,10 @@ namespace RentACar.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -291,6 +299,10 @@ namespace RentACar.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("brandId")
                         .HasColumnType("integer");

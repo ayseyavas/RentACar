@@ -10,7 +10,7 @@ using RentACar.Utilities;
 
 namespace RentACar.Controllers
 {
-    [Authorize(Roles =UserRoles.Role_Admin)]
+    //[Authorize(Roles =UserRoles.Role_Admin)]
     public class BrandController : Controller
     {
         private IBrandService<Brand> brandManager;
@@ -53,16 +53,20 @@ namespace RentACar.Controllers
             {
                 return NotFound();
             }
-            return RedirectToAction("Index","Brand");
+            return RedirectToAction("Index");
         }
 
 
         [HttpPost]
-        public IActionResult AddNewBrand(CreateNewBrandRequest createNewBrandRequest)
+        public IActionResult AddNewBrand(CreateNewBrandRequest createNewBrandRequest, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                brandManager.AddNewBrand(createNewBrandRequest);
+               
+
+
+
+                    brandManager.AddNewBrand(createNewBrandRequest, file);
 
                 return RedirectToAction("Index");
             }
@@ -89,12 +93,12 @@ namespace RentACar.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateBrand(UpdateBrandRequest updateBrandRequest)
+        public IActionResult UpdateBrand(UpdateBrandRequest updateBrandRequest, IFormFile file)
         {
             if (ModelState.IsValid)
             {
 
-                brandManager.UpdateBrand(updateBrandRequest);
+                brandManager.UpdateBrand(updateBrandRequest,file);
 
 
 

@@ -25,6 +25,12 @@
                     <input asp-for="description" class="form-control" />
 
                 </div>
+                <div class="mb-3">
+
+                    <label asp-for="PictureUrl" class="p-0"></label>
+                    <input type="file" name="file" class="form-control" />
+
+                </div>
                 
                 @* <div class="mb-3">
 
@@ -39,7 +45,7 @@
                
 
 
-                <a asp-controller="Book" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px"> Show Books </a>
+                <a asp-controller="Brand" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px"> Show Brands </a>
 
 
 
