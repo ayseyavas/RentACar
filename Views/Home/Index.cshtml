@@ -3,14 +3,14 @@
     ViewData["Title"] = "Home Page";
 }
 
-@if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Role_User))
-{
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+ @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Role_User))
+ {
+     Layout = "~/Views/Shared/_UserLayout.cshtml";
+ }
+ else
+ {
+     Layout = "~/Views/Shared/_Layout.cshtml";
+ }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>

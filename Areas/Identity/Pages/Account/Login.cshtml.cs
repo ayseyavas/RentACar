@@ -18,15 +18,20 @@ using RentACar.Models;
 
 namespace RentACar.Areas.Identity.Pages.Account
 {
+
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<AppUser> _userManager; // Bu satırı ekleyin
 
-        public LoginModel(SignInManager<AppUser> signInManager, ILogger<LoginModel> logger)
+
+        public LoginModel(SignInManager<AppUser> signInManager, ILogger<LoginModel> logger, UserManager<AppUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -85,6 +90,7 @@ namespace RentACar.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
+        [AllowAnonymous]
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -102,8 +108,10 @@ namespace RentACar.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(AppUser appUser, string returnUrl = null)
         {
+
+
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -116,6 +124,18 @@ namespace RentACar.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+
+
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+
+                    // Session'a kullanıcı bilgilerini kaydet
+                    HttpContext.Session.SetString("UserId", user.Id);
+                    HttpContext.Session.SetString("UserEmail", user.Email);
+
+
+                    _logger.LogInformation($"Session started for user: {user.Email}");
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -124,6 +144,7 @@ namespace RentACar.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
+
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
@@ -133,6 +154,8 @@ namespace RentACar.Areas.Identity.Pages.Account
                     return Page();
                 }
             }
+
+
 
             // If we got this far, something failed, redisplay form
             return Page();

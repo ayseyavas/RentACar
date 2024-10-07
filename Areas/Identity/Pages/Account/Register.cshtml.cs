@@ -23,6 +23,8 @@ using RentACar.Utilities;
 
 namespace RentACar.Areas.Identity.Pages.Account
 {
+
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<AppUser> _signInManager;

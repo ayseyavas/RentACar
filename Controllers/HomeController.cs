@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Models;
 using System.Diagnostics;
 
 namespace RentACar.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,10 +17,10 @@ namespace RentACar.Controllers
 
         public IActionResult Index()
         {
-
             if (User.Identity.IsAuthenticated)
             {
                 return View();
+
             }
             else
             {

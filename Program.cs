@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Models;
 using RentACar.Models.Business.Abstract;
@@ -20,17 +22,36 @@ builder.Services.AddControllersWithViews();
 
 
 
+//session config
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+
+
+builder.Services.AddMvc(config =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser().Build();
+
+    config.Filters.Add(new AuthorizeFilter(policy));
+});
+
+
 
 builder.Services.AddScoped<IBrandService<Brand>, BrandManager>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ICarModelService<CarModel>, CarModelManager>();
-builder.Services.AddScoped<ICarModelRepository,CarModelRepository>();
+builder.Services.AddScoped<ICarModelRepository, CarModelRepository>();
 builder.Services.AddScoped<ICarService<Car>, CarManager>();
 
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
-builder.Services.AddScoped<ICarRepository,CarRepository>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<AppUser>();
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -101,14 +122,14 @@ using (var scope = app.Services.CreateScope())
         SeedRoles.InitializeRoles(services).Wait();
 
     }
-    catch(Exception ex)
+    catch (Exception ex)
     {
-        var logger= services.GetRequiredService<ILogger<Program>>();
+        var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "Hata bro");
     }
 
 
-    
+
 }
 
 
@@ -127,6 +148,7 @@ app.UseAuthentication(); // Bu satýrý ekleyin
 app.UseAuthorization();
 
 
+app.UseSession();
 
 
 

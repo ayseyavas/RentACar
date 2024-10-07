@@ -7,6 +7,7 @@ using RentACar.Models.Entities.Concreate;
 
 namespace RentACar.Controllers
 {
+
     public class CarModelController : Controller
     {
         public ICarModelService<CarModel> carModelManager;
