@@ -12,7 +12,7 @@ namespace RentACar.Controllers.User
         {
             this.carManager = carManager;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? brandId, int? carModelId)
         {
 
             IEnumerable<GetAllCarsResponse> cars = carManager.GetAll();

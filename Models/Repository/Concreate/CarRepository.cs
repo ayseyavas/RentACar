@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RentACar.DTOs.Response;
 using RentACar.Models.Entities.Concreate;
 using RentACar.Models.Repository.Abstract;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace RentACar.Models.Repository.Concreate
 {
@@ -39,9 +41,11 @@ namespace RentACar.Models.Repository.Concreate
 
 
 
-            query = query.Include(c => c.brand);
+            //query = query.Include(c => c.brand);
 
             query= query.Include(c=> c.model);
+
+            query = query.Include(c => c.model.brand);
 
 
             IEnumerable<Car> carModels = query.ToList();
@@ -54,6 +58,43 @@ namespace RentACar.Models.Repository.Concreate
                 }
 
             }
+            return query.ToList();
+        }
+
+        public IEnumerable<Car> GetCarsByFilters(int? brandId = null, int? modelId = null, int? minPrice = null, int? maxPrice = null)
+        {
+
+            IQueryable<Car> query = _carDbRepository.cars;
+
+            query = query
+                //.Include(c => c.brand)
+                        .Include(c => c.model);
+
+            // Eğer BrandId filtrelemesi varsa, sorguya dahil ediyoruz
+            if (brandId.HasValue)
+            {
+                query = query.Where(c => c.model.brandId == brandId.Value);
+            }
+
+            // Eğer ModelId filtrelemesi varsa, sorguya dahil ediyoruz
+            if (modelId.HasValue)
+            {
+                query = query.Where(c => c.modelId == modelId.Value);
+            }
+
+            // Eğer fiyat aralığı filtrelemesi varsa, sorguya dahil ediyoruz
+            if (minPrice.HasValue)
+            {
+                query = query.Where(c => c.dailyPrice >= minPrice.Value);
+            }
+
+            if (maxPrice.HasValue)
+            {
+                query = query.Where(c => c.dailyPrice <= maxPrice.Value);
+            }
+
+
+
             return query.ToList();
         }
 

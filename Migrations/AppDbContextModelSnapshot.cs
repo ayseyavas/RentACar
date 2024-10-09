@@ -30,12 +30,12 @@ namespace RentACar.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("Brandid")
+                        .HasColumnType("integer");
+
                     b.Property<string>("PictureUrl")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("brandId")
-                        .HasColumnType("integer");
 
                     b.Property<int>("dailyPrice")
                         .HasColumnType("integer");
@@ -49,7 +49,7 @@ namespace RentACar.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("brandId");
+                    b.HasIndex("Brandid");
 
                     b.HasIndex("modelId");
 
@@ -320,19 +320,15 @@ namespace RentACar.Migrations
 
             modelBuilder.Entity("Car", b =>
                 {
-                    b.HasOne("RentACar.Models.Entities.Concreate.Brand", "brand")
+                    b.HasOne("RentACar.Models.Entities.Concreate.Brand", null)
                         .WithMany("cars")
-                        .HasForeignKey("brandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Brandid");
 
                     b.HasOne("RentACar.Models.Entities.Concreate.CarModel", "model")
                         .WithMany("cars")
                         .HasForeignKey("modelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("brand");
 
                     b.Navigation("model");
                 });

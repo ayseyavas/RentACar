@@ -47,7 +47,7 @@ namespace RentACar.Models.Repository.Concreate
 
             }
 
-            return query.FirstOrDefault();
+            return query.AsNoTracking().FirstOrDefault();
         }
 
         public IEnumerable<CarModel> GetAll(string? includeProps = null)
@@ -72,6 +72,8 @@ namespace RentACar.Models.Repository.Concreate
 
         public void Update(CarModel entity)
         {
+
+
             
 
             _carModelDbContext.Update(entity);

@@ -80,11 +80,12 @@ namespace RentACar.Controllers
 
         }
         [HttpPost]
-        public IActionResult UpdateCarModel(UpdateCarModelRequest updateCarModelRequest, IFormFile file) 
+        public IActionResult UpdateCarModel(UpdateCarModelRequest updateCarModelRequest, IFormFile? file) 
         {
-            
-            carModelManager.updateCarModel(updateCarModelRequest,file);
 
+            if (ModelState.IsValid) { 
+            carModelManager.updateCarModel(updateCarModelRequest,file);
+            }
 
             return RedirectToAction("Index");
         }

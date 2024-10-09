@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RentACar.DTOs.Request;
 using RentACar.DTOs.Response;
 using RentACar.Models.Business.Abstract;
@@ -96,15 +97,25 @@ namespace RentACar.Models.Business.Concreate
             string wwwRootPath = webHostEnvironment.WebRootPath;
             string brandpath = Path.Combine(wwwRootPath, @"img", @"carModel");
 
-            using (var fileStream = new FileStream(Path.Combine(brandpath, file.FileName), FileMode.Create))
-            {
-                file.CopyTo(fileStream);
-            }
-            updateCarModelRequest.PictureUrl = @"\img\brand\" + file.FileName;
+            CarModel carModel = carModelRepository.Get(x => x.id==updateCarModelRequest.id);
 
+
+            if (file!=null)
+            {
+                using (var fileStream = new FileStream(Path.Combine(brandpath, file.FileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                updateCarModelRequest.PictureUrl = @"\img\brand\" + file.FileName;
+
+            }
+            else
+            {
+                updateCarModelRequest.PictureUrl=carModel.PictureUrl;
+            }
+           
             CarModel tempCarModel = _mapper.Map<CarModel>(updateCarModelRequest);
 
-            //carModel =tempCarModel;
 
             
             carModelRepository.Update(tempCarModel);

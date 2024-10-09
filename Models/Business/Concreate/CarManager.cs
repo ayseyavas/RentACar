@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using RentACar.DTOs.Request;
 using RentACar.DTOs.Response;
 using RentACar.Models.Business.Abstract;
@@ -49,9 +50,11 @@ namespace RentACar.Models.Business.Concreate
             
         }
 
-        public IEnumerable<GetAllCarsResponse> GetAll(string? includeProps = null)
+        public IEnumerable<GetAllCarsResponse> GetAll( string? includeProps = null)
         {
             IEnumerable<Car> cars = carRepository.GetAll(includeProps);
+
+         
 
             IEnumerable<GetAllCarsResponse> getAllCarsResponses = _mapper.Map<IEnumerable<GetAllCarsResponse>>(cars);
 
@@ -68,6 +71,49 @@ namespace RentACar.Models.Business.Concreate
             return getAllCarModelsResponses;
 
 
+        }
+
+        public IEnumerable<GetAllCarsResponse> GetCarsByFilters(int? brandId = null, int? modelId = null, int? minPrice = null, int? maxPrice = null)
+        {
+
+            IEnumerable<Car> cars = carRepository.GetCarsByFilters(brandId, modelId, minPrice, maxPrice);
+
+
+            //// Sorguyu IQueryable ile başlatıyoruz
+            //IQueryable<Car> query = (IQueryable<Car>)carRepository.GetAll();
+
+            //// Default ilişkiler
+            //query = query.Include(c => c.brand)
+            //             .Include(c => c.model);
+
+            //// Eğer BrandId filtrelemesi varsa, sorguya dahil ediyoruz
+            //if (brandId.HasValue)
+            //{
+            //    query = query.Where(c => c.brandId == brandId.Value);
+            //}
+
+            //// Eğer ModelId filtrelemesi varsa, sorguya dahil ediyoruz
+            //if (modelId.HasValue)
+            //{
+            //    query = query.Where(c => c.modelId == modelId.Value);
+            //}
+
+            //// Eğer fiyat aralığı filtrelemesi varsa, sorguya dahil ediyoruz
+            //if (minPrice.HasValue)
+            //{
+            //    query = query.Where(c => c.dailyPrice >= minPrice.Value);
+            //}
+
+            //if (maxPrice.HasValue)
+            //{
+            //    query = query.Where(c => c.dailyPrice <= maxPrice.Value);
+            //}
+
+            IEnumerable<GetAllCarsResponse> getAllCarsResponse = _mapper.Map<IEnumerable<GetAllCarsResponse>>(cars);
+
+
+            // Sorgunun sonucunu liste olarak döndürüyoruz
+            return getAllCarsResponse.ToList();
         }
     }
 }

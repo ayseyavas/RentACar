@@ -42,7 +42,7 @@ namespace RentACar.Models.Repository.Concreate
 
             }
 
-            return query.FirstOrDefault();
+            return query.AsNoTracking().FirstOrDefault();
         }
 
         public IEnumerable<Brand> GetAll(string? includeProps = null)

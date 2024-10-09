@@ -44,8 +44,8 @@
                 @foreach (var carModel in Model)
                 {
                     <tr>
-                        <td align="center" valign="middle" width="50" height="50">
-                            <img src="@carModel.PictureUrl" />
+                        <td align="center" valign="middle" @* width="100" height="100" *@>
+                            <img src="@carModel.PictureUrl" style="width:100px; height:100px; object-fit: contain;" />
                         </td>
                         <td align="center" valign="middle">@carModel.id</td>
                         <td align="center" valign="middle">@carModel.name</td>

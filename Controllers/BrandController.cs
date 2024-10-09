@@ -93,7 +93,7 @@ namespace RentACar.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateBrand(UpdateBrandRequest updateBrandRequest, IFormFile file)
+        public IActionResult UpdateBrand(UpdateBrandRequest updateBrandRequest, IFormFile? file)
         {
             if (ModelState.IsValid)
             {

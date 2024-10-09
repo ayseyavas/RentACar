@@ -8,8 +8,6 @@ namespace RentACar.DTOs.Request
         public string name { get; set; }
         public string description { get; set; }
 
-        public int brandId { get; set; }
-
         [ValidateNever]
         public string PictureUrl { get; set; }
 

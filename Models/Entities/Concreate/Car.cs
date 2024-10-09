@@ -22,10 +22,10 @@ public class Car
     public CarModel model { get; set; }
 
     // Brand ile olan ilişki (Yeni Eklendi)
-    public int brandId { get; set; }
-    [ForeignKey("brandId")]
+    //public int brandId { get; set; }
+    //[ForeignKey("brandId")]
 
-    public Brand brand { get; set; }
+    //public Brand brand { get; set; }
 
     [ValidateNever]
     public string PictureUrl { get; set; }

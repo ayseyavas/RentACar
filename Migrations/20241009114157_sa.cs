@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RentACar.Migrations
 {
     /// <inheritdoc />
-    public partial class UserContollers : Migration
+    public partial class sa : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -207,18 +207,17 @@ namespace RentACar.Migrations
                     plate = table.Column<string>(type: "text", nullable: false),
                     dailyPrice = table.Column<int>(type: "integer", nullable: false),
                     modelId = table.Column<int>(type: "integer", nullable: false),
-                    brandId = table.Column<int>(type: "integer", nullable: false),
-                    PictureUrl = table.Column<string>(type: "text", nullable: false)
+                    PictureUrl = table.Column<string>(type: "text", nullable: false),
+                    Brandid = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_cars", x => x.id);
                     table.ForeignKey(
-                        name: "FK_cars_brands_brandId",
-                        column: x => x.brandId,
+                        name: "FK_cars_brands_Brandid",
+                        column: x => x.Brandid,
                         principalTable: "brands",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_cars_models_modelId",
                         column: x => x.modelId,
@@ -265,9 +264,9 @@ namespace RentACar.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_cars_brandId",
+                name: "IX_cars_Brandid",
                 table: "cars",
-                column: "brandId");
+                column: "Brandid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_cars_modelId",

@@ -23,7 +23,7 @@ namespace RentACar.Models.Business.Concreate
             this._mapper = mapper;
             this.webHostEnvironment = webHostEnvironment;
         }
-        public void AddNewBrand(CreateNewBrandRequest createNewBrandRequest,IFormFile file)
+        public void AddNewBrand(CreateNewBrandRequest createNewBrandRequest, IFormFile file)
         {
             string wwwRootPath = webHostEnvironment.WebRootPath;
             string brandpath = Path.Combine(wwwRootPath, @"img", @"brand");
@@ -34,17 +34,17 @@ namespace RentACar.Models.Business.Concreate
             }
             createNewBrandRequest.PictureUrl = @"\img\brand\" + file.FileName;
 
-            Brand brand= _mapper.Map<Brand>(createNewBrandRequest);
+            Brand brand = _mapper.Map<Brand>(createNewBrandRequest);
 
             brandRepository.Add(brand);
-            
+
         }
 
         public IEnumerable<GetAllBrandsResponse> GetAll(string? includeProps = null)
         {
-            IEnumerable<Brand> brands= brandRepository.GetAll();
+            IEnumerable<Brand> brands = brandRepository.GetAll();
 
-            IEnumerable<GetAllBrandsResponse> brandResponse =_mapper.Map<IEnumerable<GetAllBrandsResponse>>(brands);
+            IEnumerable<GetAllBrandsResponse> brandResponse = _mapper.Map<IEnumerable<GetAllBrandsResponse>>(brands);
 
             return brandResponse;
         }
@@ -54,33 +54,47 @@ namespace RentACar.Models.Business.Concreate
             string wwwRootPath = webHostEnvironment.WebRootPath;
             string brandpath = Path.Combine(wwwRootPath, @"img", @"brand");
 
-            using (var fileStream = new FileStream(Path.Combine(brandpath, file.FileName), FileMode.Create))
+            Brand brand=brandRepository.Get(x=>x.id == updateBrandRequest.id);
+
+
+            if (file !=null)
             {
-                file.CopyTo(fileStream);
+                using (var fileStream = new FileStream(Path.Combine(brandpath, file.FileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                updateBrandRequest.PictureUrl = @"\img\brand\" + file.FileName;
             }
-            updateBrandRequest.PictureUrl = @"\img\brand\" + file.FileName;
+            else 
+            {
+                updateBrandRequest.PictureUrl=brand.PictureUrl;
+            }
+            
 
-            Brand tempbrand= _mapper.Map<Brand>(updateBrandRequest);
-
+            Brand tempbrand = _mapper.Map<Brand>(updateBrandRequest);
            
+
+
+
             brandRepository.Update(tempbrand);
+
 
         }
 
         public GetBrandByIdResponse GetBrandById(int id)
         {
-            Brand brand= brandRepository.Get(x=>x.id==id);
+            Brand brand = brandRepository.Get(x => x.id == id);
 
-            GetBrandByIdResponse getBrandByIdResponse=_mapper.Map<GetBrandByIdResponse>(brand);
+            GetBrandByIdResponse getBrandByIdResponse = _mapper.Map<GetBrandByIdResponse>(brand);
 
             return getBrandByIdResponse;
-           
+
         }
 
         public void DeleteBrand(GetBrandByIdResponse getBrandByIdResponse)
         {
-            Brand brand=_mapper.Map<Brand>(getBrandByIdResponse);
-           brandRepository.Delete(brand);
+            Brand brand = _mapper.Map<Brand>(getBrandByIdResponse);
+            brandRepository.Delete(brand);
         }
     }
 }

@@ -6,6 +6,7 @@ using RentACar.DTOs.Response;
 using RentACar.Models.Business.Abstract;
 using RentACar.Models.Business.Concreate;
 using RentACar.Models.Entities.Concreate;
+using RentACar.Utilities.Filters;
 
 namespace RentACar.Controllers
 {
@@ -21,11 +22,71 @@ namespace RentACar.Controllers
             this.carManager = carManager;
         }
 
+
+
         public IActionResult Index()
         {
-            IEnumerable<GetAllCarsResponse> cars = carManager.GetAll();
+
+            var cars = carManager.GetAll();
+
+           
+
+
+            // IEnumerable<GetAllCarsResponse> cars = carManager.GetAll();
+
+            //IEnumerable<SelectListItem> carModelList = carManager.GetAllCarModels()
+            //    .Select(x => new SelectListItem
+            //    {
+            //        Text = x.name,
+            //        Value = x.id.ToString()
+
+            //    });
+
+            //ViewBag.carModelList = carModelList;
+
+            IEnumerable<SelectListItem> brandList = carManager.GetAllCarModels()
+              .Select(x => new SelectListItem
+              {
+                  Text = x.brand.name,
+                  Value = x.brand.id.ToString()
+
+              });
+
+            ViewBag.brandList = brandList;
 
             return View(cars);
+        }
+
+
+        public IActionResult GetCarModelsByBrand(int brandId)
+        {
+            // Marka ID'sine göre ilgili modelleri getir
+            var carModels = carManager.GetAllCarModels()
+                .Where(x => x.brandId == brandId)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.name,
+                    Value = x.id.ToString()
+                })
+                .ToList();
+
+            return Json(carModels); // JSON formatında döndür
+        }
+
+
+        [HttpGet]
+        public IActionResult Sa(CarFilerAjaxData carFilerAjaxData)
+        {
+            int? brandId = carFilerAjaxData.brandId;
+            int? modelId = carFilerAjaxData.modelId;
+
+            int? minPrice = carFilerAjaxData.minPrice;
+            int? maxPrice = carFilerAjaxData.maxPrice;
+
+            var cars = carManager.GetCarsByFilters(brandId, modelId, minPrice, maxPrice);
+
+
+            return Json(cars);
         }
 
 
@@ -50,8 +111,8 @@ namespace RentACar.Controllers
         public IActionResult AddNewCar(CreateNewCarRequest createNewCarRequest, IFormFile file)
         {
 
-            carManager.AddNewCar(createNewCarRequest,file);
-        
+            carManager.AddNewCar(createNewCarRequest, file);
+
             return RedirectToAction("Index");
         }
     }
