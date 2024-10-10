@@ -47,7 +47,7 @@
                 </form>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-9">
                 <h1>Cars</h1>
             <table class="table table-bordered">
                 <thead>
@@ -67,6 +67,12 @@
                         <th align="center" valign="middle">
                             Brand Name
                         </th>
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
 
 
 
@@ -84,13 +90,12 @@
                             <td align="center" valign="middle">@car.model.name</td>
                             <td align="center" valign="middle">@car.model.brand.name</td>
 
-
-
-
-
                             <td align="center" valign="middle">
                                 <a asp-controller="Car" asp-action="AddCarr" asp-route-id="@car.id" type="button" class="btn btn-success style="width:100px">Güncelle</a>
                             </td>
+                                <td align="center" valign="middle">
+                                    <a asp-controller="Car" asp-action="DeleteCar" asp-route-id="@car.id" type="button" class="btn btn-danger style="width:100px">Sil</a>
+                                </td>
                         </tr>
                     }
                 </tbody>

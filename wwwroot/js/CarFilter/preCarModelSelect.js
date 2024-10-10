@@ -16,7 +16,7 @@
                         $('#modelId').append('<option value="">Model seçiniz</option>'); // Varsayılan seçenek ekle
 
                         // Gelen modelleri dropdown'a ekle
-                        $.each(response.$values, function (i, model) {
+                        $.each(response, function (i, model) {
                             $('#modelId').append('<option value="' + model.value + '">' + model.text + '</option>');
                         });
                     }

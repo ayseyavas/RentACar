@@ -1,0 +1,107 @@
+﻿@using RentACar.DTOs.Response
+@model GetCarByIdResponse
+
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-10">
+
+            <div class="border p-3 mt-5">
+                @*<div class="row pb-3 ">
+                <h2 class="text-primary">@(Model == null ? "Add Book" : "Update Book")</h2>
+                <hr />
+
+                </div>*@
+
+
+                <div class="mb-3">
+
+                    <label asp-for="id" class="p-0"></label>
+                    <input asp-for="id" class="form-control" readonly />
+                   
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="model.brand.description" class="p-0"></label>
+                    <input asp-for="model.brand.description" class="form-control" readonly />
+
+                </div>
+                <div class="mb-3">
+
+                    <label asp-for="model.brand.PictureUrl" class="p-0"></label>
+                    <input asp-for="model.brand.PictureUrl" class="form-control" readonly />
+
+                </div>
+                <div class="mb-3">
+
+                    <label asp-for="model.PictureUrl" class="p-0"></label>
+                    <input asp-for="model.PictureUrl" class="form-control" readonly />
+
+                </div>
+                 <div class="mb-3">
+
+                     <label asp-for="modelId" class="p-0"></label>
+                     <input asp-for="modelId" class="form-control" readonly />
+
+                 </div>
+                 <div class="mb-3">
+
+                     <label asp-for="model.brandId" class="p-0"></label>
+                    <input asp-for="model.brandId" class="form-control" readonly />
+
+                 </div>
+                <div class="mb-3">
+
+                    <label asp-for="plate" class="p-0"></label>
+                    <input asp-for="plate" class="form-control" readonly />
+@*                     <span asp-validation-for="plate" class="text-danger"></span>
+ *@                </div>
+                <div class="mb-3">
+
+                    <label asp-for="model.name" class="p-0"></label>
+                    <input asp-for="model.name" class="form-control" readonly />
+
+                </div>
+                <div class="mb-3">
+
+                    <label asp-for="model.brand.name" class="p-0"></label>
+                    <input asp-for="model.brand.name" class="form-control" readonly />
+
+                </div>
+
+                @* <div class="mb-3">
+
+                <label asp-for="PicUrl" class="p-2"></label>
+                <input type="file" name="file" class="form-control" />
+                </div> *@
+
+
+
+
+                <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Delete Brand</button>
+
+
+
+                <a asp-controller="Car" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px"> Show Brands </a>
+
+
+
+            </div>
+        </div>
+        
+        <div class="col-2">
+
+
+
+            <img src="@Model.PictureUrl" style=" max-width=100px; max:175px" ; />
+
+        </div>
+
+    </div>
+
+
+
+
+
+</form>

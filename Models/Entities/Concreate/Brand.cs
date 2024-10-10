@@ -18,7 +18,7 @@ namespace RentACar.Models.Entities.Concreate
         [ValidateNever]
         public ICollection<CarModel> carModels { get; set; }
 
-        public ICollection<Car> cars { get; set; }
+        //public ICollection<Car> cars { get; set; }
 
         [ValidateNever]
         public string PictureUrl { get; set; }

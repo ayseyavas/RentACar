@@ -35,6 +35,8 @@ namespace RentACar.Utilities.Mappers
             //Car
             CreateMap<Car,GetAllCarsResponse>();
             CreateMap<CreateNewCarRequest, Car>();
+            CreateMap<GetCarByIdResponse, Car>();
+            CreateMap<Car, GetCarByIdResponse>();
 
         }
     }

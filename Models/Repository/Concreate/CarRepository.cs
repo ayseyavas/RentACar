@@ -27,12 +27,30 @@ namespace RentACar.Models.Repository.Concreate
 
         public void Delete(Car entity)
         {
-            throw new NotImplementedException();
+            _carDbRepository.Remove(entity);
+            _carDbRepository.SaveChanges();
         }
 
         public Car Get(Expression<Func<Car, bool>> expression, string? includeProps = null)
         {
-            throw new NotImplementedException();
+
+            IQueryable<Car> query = _carDbRepository.cars.Where(expression);
+
+             query= query.Include(c=> c.model);
+
+            query = query.Include(c => c.model.brand);
+
+
+            if (!string.IsNullOrEmpty(includeProps))
+            {
+                foreach (var includeProp in includeProps.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+
+            }
+
+            return query.AsNoTracking().FirstOrDefault();
         }
 
         public IEnumerable<Car> GetAll(string? includeProps = null)
@@ -42,6 +60,7 @@ namespace RentACar.Models.Repository.Concreate
 
 
             //query = query.Include(c => c.brand);
+            
 
             query= query.Include(c=> c.model);
 
@@ -67,7 +86,7 @@ namespace RentACar.Models.Repository.Concreate
             IQueryable<Car> query = _carDbRepository.cars;
 
             query = query
-                //.Include(c => c.brand)
+                .Include(c => c.model.brand)
                         .Include(c => c.model);
 
             // Eğer BrandId filtrelemesi varsa, sorguya dahil ediyoruz

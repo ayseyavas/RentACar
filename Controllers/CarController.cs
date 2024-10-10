@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RentACar.DTOs.Request;
 using RentACar.DTOs.Response;
 using RentACar.Models.Business.Abstract;
@@ -44,7 +45,8 @@ namespace RentACar.Controllers
 
             //ViewBag.carModelList = carModelList;
 
-            IEnumerable<SelectListItem> brandList = carManager.GetAllCarModels()
+             IEnumerable<SelectListItem> brandList = carManager.GetAllCarModels()
+               .DistinctBy(x=>x.brand.id)
               .Select(x => new SelectListItem
               {
                   Text = x.brand.name,
@@ -59,7 +61,7 @@ namespace RentACar.Controllers
 
 
         public IActionResult GetCarModelsByBrand(int brandId)
-        {
+            {
             // Marka ID'sine göre ilgili modelleri getir
             var carModels = carManager.GetAllCarModels()
                 .Where(x => x.brandId == brandId)
@@ -115,5 +117,32 @@ namespace RentACar.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        [HttpGet]
+        public IActionResult DeleteCar(int id)
+        {
+
+            GetCarByIdResponse getCarByIdResponse = carManager.GetCarById(id);
+
+            
+
+            return View(getCarByIdResponse);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCar(GetCarByIdResponse getCarByIdResponse)
+        {
+
+             
+
+            carManager.DeleteCar(getCarByIdResponse);
+
+            
+
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

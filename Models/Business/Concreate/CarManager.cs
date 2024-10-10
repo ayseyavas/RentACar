@@ -115,5 +115,38 @@ namespace RentACar.Models.Business.Concreate
             // Sorgunun sonucunu liste olarak döndürüyoruz
             return getAllCarsResponse.ToList();
         }
+
+        public IEnumerable<GetAllBrandsResponse> GetAllBrands()
+        {
+            IEnumerable<Brand> brands= brandRepository.GetAll();
+
+            IEnumerable<GetAllBrandsResponse> getAllBrandsResponses= _mapper.Map<IEnumerable< GetAllBrandsResponse>>(brands);
+
+
+            return getAllBrandsResponses;
+        }
+
+        public void DeleteCar(GetCarByIdResponse getCarByIdResponse)
+        {
+
+            Car car=_mapper.Map<Car>(getCarByIdResponse);
+
+
+            carRepository.Delete(car);
+
+
+        }
+
+        public GetCarByIdResponse GetCarById(int id)
+        {
+            Car car = carRepository.Get(x => x.id == id);
+            
+
+            GetCarByIdResponse carByIdResponse = _mapper.Map<GetCarByIdResponse>(car); 
+            
+            return carByIdResponse;
+
+
+        }
     }
 }

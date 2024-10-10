@@ -207,17 +207,11 @@ namespace RentACar.Migrations
                     plate = table.Column<string>(type: "text", nullable: false),
                     dailyPrice = table.Column<int>(type: "integer", nullable: false),
                     modelId = table.Column<int>(type: "integer", nullable: false),
-                    PictureUrl = table.Column<string>(type: "text", nullable: false),
-                    Brandid = table.Column<int>(type: "integer", nullable: true)
+                    PictureUrl = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_cars", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_cars_brands_Brandid",
-                        column: x => x.Brandid,
-                        principalTable: "brands",
-                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_cars_models_modelId",
                         column: x => x.modelId,
@@ -262,11 +256,6 @@ namespace RentACar.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_cars_Brandid",
-                table: "cars",
-                column: "Brandid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_cars_modelId",

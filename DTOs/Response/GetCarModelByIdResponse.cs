@@ -12,7 +12,6 @@ namespace RentACar.DTOs.Response
 
         public int brandId { get; set; }
 
-        //public Brand brand { get; set; }
         [ValidateNever]
         public string PictureUrl { get; set; }
 

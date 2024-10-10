@@ -14,5 +14,12 @@ namespace RentACar.Models.Business.Abstract
         //public IEnumerable<GetAllCarsResponse> GetAll();
 
         public IEnumerable<GetAllCarModelsResponse> GetAllCarModels();
+
+        public IEnumerable<GetAllBrandsResponse> GetAllBrands();
+
+        public void DeleteCar(GetCarByIdResponse getCarByIdResponse);
+
+        public GetCarByIdResponse GetCarById(int id);
+
     }
 }

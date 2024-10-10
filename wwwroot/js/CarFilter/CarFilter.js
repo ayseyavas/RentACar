@@ -19,20 +19,30 @@
                 // Gelen verilerle tabloyu güncelle
                 $('#carTableBody').html(''); // Eski satırları temizle
 
+
+                console.log(response); // Gelen response nesnesini kontrol et
+                console.log(response.$values);
+
                 // response içindeki $values array'ini döngü ile işleyelim
-                $.each(response.$values, function (i, car) {
-                    $('#carTableBody').append(`
+                $.each(response, function (i, car) {
+                    console.log(car);
+
+
+                   
+                        $('#carTableBody').append(`
                 <tr>
                     <td align="center" valign="middle">${car.id}</td>
                     <td align="center" valign="middle">${car.plate}</td>
                     <td align="center" valign="middle">${car.dailyPrice}</td>
                     <td align="center" valign="middle">${car.model.name}</td>
- <td align="center" valign="middle">${car.model.brand.name}</td>
+                    <td align="center" valign="middle">${car.model.brand.name}</td>
+
                     <td align="center" valign="middle">
                     <a asp-controller="Car" asp-action="AddCarr" asp-route-id="${car.id}" type="button" class="btn btn-success" style="width:100px">Güncelle</a>
                 </td>
                 </tr>
             `);
+                    
                 });
             },
 
