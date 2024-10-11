@@ -15,7 +15,16 @@ namespace RentACar.Controllers.User
         }
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+
+            }
+            else
+            {
+                //login sayfasına yönlendirme yapıyor
+                return Redirect("/Identity/Account/Login");
+            }
         }
 
 

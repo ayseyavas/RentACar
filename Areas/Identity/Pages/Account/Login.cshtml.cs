@@ -20,6 +20,7 @@ namespace RentACar.Areas.Identity.Pages.Account
 {
 
     [AllowAnonymous]
+
     public class LoginModel : PageModel
     {
         private readonly SignInManager<AppUser> _signInManager;
@@ -90,7 +91,6 @@ namespace RentACar.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        [AllowAnonymous]
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))

@@ -3,10 +3,23 @@
         $('#brandId').change(function () {
             var brandId = $(this).val(); // Seçilen brandId'yi al
 
+            var userRole = $('#userRole').val(); // Kullanıcı rolünü al
+
+            var apiUrl;
+
+            if (userRole == "User") {
+                apiUrl = '/Car/GetCarModelsByBrand'
+            }
+            else {
+                apiUrl = '/Car/GetCarModelsByBrand'
+            }
+
+
             if (brandId) {
                 // Eğer bir marka seçildiyse, AJAX çağrısı yaparak modelleri getir
                 $.ajax({
-                    url: '/Car/GetCarModelsByBrand', // Controller'daki action methodun URL'i
+
+                    url: apiUrl, // Controller'daki action methodun URL'i
                     type: 'GET',
                     data: { brandId: brandId }, // Marka ID'sini gönder
                     success: function (response) {

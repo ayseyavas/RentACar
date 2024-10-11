@@ -30,20 +30,6 @@ namespace RentACar.Controllers
 
             var cars = carManager.GetAll();
 
-           
-
-
-            // IEnumerable<GetAllCarsResponse> cars = carManager.GetAll();
-
-            //IEnumerable<SelectListItem> carModelList = carManager.GetAllCarModels()
-            //    .Select(x => new SelectListItem
-            //    {
-            //        Text = x.name,
-            //        Value = x.id.ToString()
-
-            //    });
-
-            //ViewBag.carModelList = carModelList;
 
              IEnumerable<SelectListItem> brandList = carManager.GetAllCarModels()
                .DistinctBy(x=>x.brand.id)
@@ -77,7 +63,7 @@ namespace RentACar.Controllers
 
 
         [HttpGet]
-        public IActionResult Sa(CarFilerAjaxData carFilerAjaxData)
+        public IActionResult Filter(CarFilerAjaxData carFilerAjaxData)
         {
             int? brandId = carFilerAjaxData.brandId;
             int? modelId = carFilerAjaxData.modelId;

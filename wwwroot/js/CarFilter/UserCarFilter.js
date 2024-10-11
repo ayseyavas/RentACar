@@ -13,7 +13,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/Car/Filter", // Controller'daki actiona istek yap
+            url: "/UserCar/Filter", // Controller'daki actiona istek yap
             data: filterData,
             success: function (response) {
                 // Gelen verilerle tabloyu güncelle
@@ -28,8 +28,8 @@
                     console.log(car);
 
 
-                   
-                        $('#carTableBody').append(`
+
+                    $('#carTableBody').append(`
                 <tr>
                     <td align="center" valign="middle">${car.id}</td>
                     <td align="center" valign="middle">${car.plate}</td>
@@ -38,11 +38,11 @@
                     <td align="center" valign="middle">${car.model.brand.name}</td>
 
                     <td align="center" valign="middle">
-                    <a asp-controller="Car" asp-action="AddCarr" asp-route-id="${car.id}" type="button" class="btn btn-success" style="width:100px">Güncelle</a>
+                    <a asp-controller="" asp-action="" asp-route-id="${car.id}" type="button" class="btn btn-success" style="width:100px">Güncelle</a>
                 </td>
                 </tr>
             `);
-                    
+
                 });
             },
 

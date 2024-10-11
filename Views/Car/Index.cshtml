@@ -25,7 +25,7 @@
 
 
 
-                        @Html.DropDownList("modelId", new List<SelectListItem>(), "Önce marka seçiniz", new { @class = "form-control", @id = "modelId", @disabled = "disabled" })
+                        @Html.DropDownList("modelId", new List<SelectListItem>(), "Önce marka seçiniz", new { @class = "form-control select2", @id = "modelId", @disabled = "disabled" })
 
                           @* <select class="form-control" items="ViewBag.carModelList" id="modelId" name="modelId" placeholder="Model seçiniz">
                               <option value=""></option>
@@ -44,6 +44,9 @@
                     <div>
                     <button id="btnsend" type="submit" class="btn btn-primary">Filtrele</button>
                     </div>
+
+                    <input type="hidden" id="userRole" value="@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value" />
+
                 </form>
             </div>
 

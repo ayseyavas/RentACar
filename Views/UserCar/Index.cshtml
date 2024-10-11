@@ -6,67 +6,122 @@
 
 <div class=container>
     <div class="row pt-3 pb-4">
-        <div>
-            <h1>Cars</h1>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <h3>Filtrele</h3>
+                <form id="filterForm">
+                    <div class="form-group">
+                        <label for="brandId">Brand</label>
+
+                        @Html.DropDownList("brandId", (IEnumerable<SelectListItem>)ViewBag.brandList, "Marka seçiniz", new { @class = "form-control", @id = "brandId" })
+
+
+                        @*   <select class="form-control" id="brandId" name="brandId">
+                        <option value="">Seçiniz</option>
+                        <!-- Brand verilerini buraya dinamik olarak doldurabilirsin -->
+                        </select> *@
+                    </div>
+                    <div class="form-group">
+                        <label for="modelId">Model</label>
+
+
+
+                        @Html.DropDownList("modelId", new List<SelectListItem>(), "Önce marka seçiniz", new { @class = "form-control select2", @id = "modelId", @disabled = "disabled" })
+
+                        @* <select class="form-control" items="ViewBag.carModelList" id="modelId" name="modelId" placeholder="Model seçiniz">
+                        <option value=""></option>
+                        <!-- Model verilerini buraya dinamik olarak doldurabilirsin -->
+                        </select> *@
+                    </div>
+                    <div class="form-group">
+                        <label for="minPrice">Min Fiyat</label>
+                        <input type="number" class="form-control" id="minPrice" name="minPrice" placeholder="Minimum Fiyat">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxPrice">Max Fiyat</label>
+                        <input type="number" class="form-control" id="maxPrice" name="maxPrice" placeholder="Maksimum Fiyat">
+                    </div>
+                    <br />
+                    <div>
+                        <button id="btnsend" type="submit" class="btn btn-primary">Filtrele</button>
+                    </div>
+
+                    <input type="hidden" id="userRole" value="@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value" />
+
+                </form>
+            </div>
+
+
+            <div class="col-md-9">
+                <div>
+                    <h1>Cars</h1>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th align="center" valign="middle">
+                                Id
+                            </th>
+                            <th align="center" valign="middle">
+                                plate
+                            </th>
+                            <th align="center" valign="middle">
+                                Daily Price
+                            </th>
+                            <th align="center" valign="middle">
+                                Model Name
+                            </th>
+                            <th align="center" valign="middle">
+                                Brand Name
+                            </th>
+
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var car in Model)
+                        {
+                            <tr>
+
+                                <td align="center" valign="middle">@car.id</td>
+                                <td align="center" valign="middle">@car.plate</td>
+                                <td align="center" valign="middle">@car.dailyPrice</td>
+                                <td align="center" valign="middle">@car.model.name</td>
+                                <td align="center" valign="middle">@car.model.brand.name</td>
+
+
+
+                                @*
+                            <td align="center" valign="middle">
+                            <a asp-controller="Car" asp-action="AddCarr" asp-route-id="@car.id" type="button" class="btn btn-success style="width:100px">Güncelle</a>
+                            </td> *@
+                                @*<td align="center" valign="middle">
+                            <a asp-controller="Book" asp-action="DeleteBook" asp-route-id="@book.Id" type="button" class="btn btn-danger" style="width:100px">Sil</a>
+                            </td> *@
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+                
+            </div>
+
         </div>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th align="center" valign="middle">
-                        Id
-                    </th>
-                    <th align="center" valign="middle">
-                        plate
-                    </th>
-                    <th align="center" valign="middle">
-                        Daily Price
-                    </th>
-                    <th align="center" valign="middle">
-                        Model Name
-                    </th>
-                    <th align="center" valign="middle">
-                        Brand Name
-                    </th>
 
 
-
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var car in Model)
-                {
-                    <tr>
-
-                        <td align="center" valign="middle">@car.id</td>
-                        <td align="center" valign="middle">@car.plate</td>
-                        <td align="center" valign="middle">@car.dailyPrice</td>
-                        <td align="center" valign="middle">@car.model.name</td>
-                        <td align="center" valign="middle">@car.brand.name</td>
-
-
-
-                        @*
-                    <td align="center" valign="middle">
-                    <a asp-controller="Car" asp-action="AddCarr" asp-route-id="@car.id" type="button" class="btn btn-success style="width:100px">Güncelle</a>
-                    </td> *@
-                        @*<td align="center" valign="middle">
-                    <a asp-controller="Book" asp-action="DeleteBook" asp-route-id="@book.Id" type="button" class="btn btn-danger" style="width:100px">Sil</a>
-                    </td> *@
-
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-
-        <div class="row pt-3 pb-2">
-            @* <div>
-                <a asp-controller="Car" asp-action="AddNewCar" class="btn btn-lg btn-primary" align="center" valign="middle" type="button">
-                    Add New Car
-                </a>
-            </div> *@
-
-        </div>
+        
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
+<script src="~/js/CarFilter/UserCarFilter.js"></script>
+<script src="~/js/CarFilter/preCarModelSelect.js"></script>
+
