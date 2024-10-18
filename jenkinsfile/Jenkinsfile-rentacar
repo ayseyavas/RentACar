@@ -18,7 +18,7 @@ pipeline {
     }
     stage('Deploy to Kubernetes') {
       steps {
-        sh 'helm upgrade --install RentACar ./RentACar'
+       sh 'helm upgrade --install rentacar ./Helm/rentacar-chart --namespace rentacar
       }
     
      stage('Check Deployment Status') {
