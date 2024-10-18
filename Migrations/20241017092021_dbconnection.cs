@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RentACar.Migrations
 {
     /// <inheritdoc />
-    public partial class sa : Migration
+    public partial class dbconnection : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

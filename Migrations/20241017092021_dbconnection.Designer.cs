@@ -12,8 +12,8 @@ using RentACar.Models.Repository.Concreate;
 namespace RentACar.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241010121737_sa")]
-    partial class sa
+    [Migration("20241017092021_dbconnection")]
+    partial class dbconnection
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

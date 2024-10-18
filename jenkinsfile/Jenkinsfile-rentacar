@@ -1,0 +1,44 @@
+pipeline {
+  agent any
+  stages {
+    stage('Clone Repository') {
+      steps {
+        git 'https://github.com/ayseyavas/RentACar.git'
+      }
+    }
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t RentACar .'
+      }
+    }
+    stage('Push Docker Image') {
+      steps {
+        sh 'docker push RentACar/RentACar'
+      }
+    }
+    stage('Deploy to Kubernetes') {
+      steps {
+        sh 'helm upgrade --install RentACar ./RentACar'
+      }
+    
+     stage('Check Deployment Status') {
+      steps {
+        script {
+          // Wait until the deployment is successful or fails after 5 minutes
+          def deploymentStatus = sh (
+            script: '''
+            kubectl rollout status deployment/rentacar --timeout=300s
+            ''',
+            returnStatus: true
+          )
+
+          if (deploymentStatus == 0) {
+            echo 'Deployment succeeded!'
+          } else {
+            error('Deployment failed!')
+          }
+        }
+      }
+    }
+  }
+}
