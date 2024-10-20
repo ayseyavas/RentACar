@@ -13,15 +13,18 @@ pipeline {
     }
     stage('Push Docker Image') {
       steps {
-        sh 'docker push RentACar/RentACar'
+        // Ensure Docker is authenticated before pushing
+        sh 'docker login -u ayseyavass -p aaa12345.'
+        sh 'docker tag RentACar ayseyavass/rentacar:latest'
+        sh 'docker push ayseyavass/rentacar:latest'
       }
     }
     stage('Deploy to Kubernetes') {
       steps {
-       sh 'helm upgrade --install rentacar ./Helm/rentacar-chart --namespace rentacar
+        sh 'helm upgrade --install rentacar ./Helm/rentacar-chart --namespace rentacar'
       }
-    
-     stage('Check Deployment Status') {
+    }
+    stage('Check Deployment Status') {
       steps {
         script {
           // Wait until the deployment is successful or fails after 5 minutes
